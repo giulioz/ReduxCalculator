@@ -13,17 +13,19 @@ const doOperation = (operation, a, b) => {
       bV = b || 0;
       return aV + bV;
     case "-":
-      aV = a || 0;
-      bV = b || 0;
-      return aV - bV;
+      if (a && b) return b - a;
+      else if (a) return a;
+      else if (b) return b;
+      else return 0;
     case "*":
       aV = a || 1;
       bV = b || 1;
       return aV * bV;
     case "/":
-      aV = a || 1;
-      bV = b || 1;
-      return aV / bV;
+      if (a && b) return b / a;
+      else if (a) return a;
+      else if (b) return b;
+      else return 0;
     default:
       return a || b || 0;
   }
