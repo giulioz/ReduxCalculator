@@ -1,2 +1,0 @@
-# ReduxCalculator
-Created with CodeSandbox
