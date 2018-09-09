@@ -1,42 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, withStyles } from "@material-ui/core";
 import { createStore } from "redux";
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import Calculator from "./Calculator";
-import "./index.css";
+import CalculatorContainer from "./CalculatorContainer";
+import calculatorReducer from "./calculatorReducer";
 
-const reducer = (state = 0, action) => {
-  switch (action.operator) {
-    case "+":
-      return state + action.value;
-    case "-":
-      return state - action.value;
-    case "*":
-      return state * action.value;
-    case "/":
-      return state / action.value;
-    default:
-      return state;
+const store = createStore(calculatorReducer, composeWithDevTools());
+
+const styles = {
+  "@global": {
+    "html, body, #root": {
+      height: "100%"
+    }
   }
 };
-
-const store = createStore(reducer, composeWithDevTools());
-
-const mapStateToProps = state => ({
-  state
-});
-
-const mapDispatchToProps = dispatch => ({
-  doOperation: (operator, value) => dispatch({ type: operator, value })
-});
-
-const CalculatorContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Calculator);
 
 function App() {
   return (
@@ -48,5 +28,6 @@ function App() {
   );
 }
 
+const StyledApp = withStyles(styles)(App);
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(<StyledApp />, rootElement);
