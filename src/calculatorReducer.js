@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   value: 0,
   nextValue: null,
   operation: null
@@ -25,7 +25,7 @@ const doOperation = (operation, a, b) => {
       bV = b || 1;
       return aV / bV;
     default:
-      return a || b;
+      return a || b || 0;
   }
 };
 
@@ -41,8 +41,6 @@ export default (state = initialState, action) => {
         value: state.operation === "=" ? null : state.value,
         nextValue
       };
-    case "CLEAR":
-      return initialState;
     case "=":
       return {
         value: doOperation(state.operation, state.nextValue, state.value),
@@ -53,7 +51,7 @@ export default (state = initialState, action) => {
       return {
         value: doOperation(action.type, state.nextValue, state.value),
         nextValue: null,
-        operation: action.type
+        operation: action.type || null
       };
   }
 };
